@@ -62,9 +62,9 @@
     </p>
   </header>
 
-  <section class="space-y-4">
+  <section class="space-y-6">
     <div class="flex items-center justify-between">
-      <h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">Tiers</h3>
+      <h3 class="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">Tiers</h3>
       <button
         type="button"
         class="btn-primary"
@@ -75,7 +75,7 @@
       </button>
     </div>
 
-    <div class="space-y-4">
+    <div class="space-y-5">
       {#each tiers as tier (tier.id)}
         <div
           class="animate-fade-in rounded-2xl border border-slate-200/70 bg-white/80 p-4 shadow-sm transition hover:border-indigo-200 hover:shadow-lg"
@@ -105,7 +105,7 @@
             </label>
           </div>
 
-          <div class="mt-4 grid gap-4 sm:grid-cols-[auto_1fr] sm:items-end">
+          <div class="mt-5 grid gap-4 sm:grid-cols-[auto_1fr] sm:items-end">
             <label class="flex flex-col gap-2 text-sm font-medium text-slate-600">
               Share of conversions
               <div class="flex items-center gap-2">
@@ -124,9 +124,7 @@
             </label>
 
             <div class="flex justify-end gap-3">
-              <div
-                class="rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.25em] text-indigo-600"
-              >
+              <div class="pill-accent">
                 {(tier.share * 100).toFixed(1)}%
               </div>
               {#if tiers.length > 1}
@@ -150,7 +148,7 @@
 
     <div class="rounded-2xl border border-slate-200/70 bg-slate-50/80 p-4">
       <div
-        class="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.25em] text-slate-400"
+        class="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.18em] text-slate-500"
       >
         <span>Normalized distribution</span>
         <span class="text-slate-500">{(shareTotal * 100).toFixed(1)}%</span>
@@ -219,7 +217,7 @@
   <section class="space-y-4">
     <div class="flex items-center justify-between">
       <h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">Elasticity</h3>
-      <span class="rounded-full bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
+      <span class="pill-highlight">
         {elasticity.toFixed(1)} sensitivity
       </span>
     </div>
@@ -237,7 +235,7 @@
           oninput={(event) => handleElasticityChange((event.target as HTMLInputElement).value)}
         />
         <div
-          class="flex justify-between text-xs font-semibold uppercase tracking-[0.25em] text-slate-400"
+          class="flex justify-between text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-slate-400"
         >
           <span>Discount driven</span>
           <span>Price inelastic</span>

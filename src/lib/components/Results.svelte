@@ -11,7 +11,6 @@
   const metrics = $derived(computed.metrics);
   const tierRevenue = $derived(computed.tierRevenue);
   const revenueProjection = $derived(computed.revenueProjection);
-  const elasticity = $derived(computed.elasticity);
   const adjustedTiers = $derived(computed.adjustedTiers);
 
   const formatNumber = (value: number) =>
@@ -42,8 +41,8 @@
   );
 </script>
 
-<section class="flex flex-col gap-6">
-  <div class="card glass-card animate-rise space-y-6 p-6">
+<section class="flex flex-col gap-10">
+  <div class="card glass-card animate-rise space-y-6 p-7">
     <header class="flex flex-wrap items-center justify-between gap-3">
       <div>
         <h2 class="text-xl font-semibold text-slate-900">Live Insights</h2>
@@ -51,14 +50,12 @@
           Key SaaS unit economics refreshed in real time as inputs shift.
         </p>
       </div>
-      <div
-        class="rounded-full bg-brand/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-brand"
-      >
+      <div class="pill-highlight">
         {formatNumber(state.userCount * state.conversionRate)} expected customers
       </div>
     </header>
 
-    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-live="polite">
+    <div class="grid-auto-fit grid gap-5" aria-live="polite">
       <div class="animate-fade-in" in:fade={{ duration: 180, delay: 40 }}>
         <MetricsCard
           label="ARPU"
@@ -112,7 +109,48 @@
 
   <Charts {revenueProjection} {tierRevenue} />
 
-  <div class="card glass-card animate-rise space-y-6 p-6">
+  <div class="card glass-card animate-rise space-y-6 p-6 text-sm text-slate-600">
+    <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">Current levers</h3>
+    <p>
+      <span class="font-semibold text-slate-900">Conversion rate:</span>
+      <span class="ml-1">{(state.conversionRate * 100).toFixed(1)}%</span>
+    </p>
+    <p>
+      <span class="font-semibold text-slate-900">Churn rate:</span>
+      <span class="ml-1">{(state.churnRate * 100).toFixed(1)}%</span>
+    </p>
+    <p>
+      <span class="font-semibold text-slate-900">CAC:</span>
+      <span class="ml-1">{formatCurrency(state.cac)}</span>
+    </p>
+    <p>
+      <span class="font-semibold text-slate-900">Monthly audience:</span>
+      <span class="ml-1">{formatNumber(state.userCount)}</span>
+    </p>
+  </div>
+
+  <div class="card glass-card animate-rise space-y-4 p-6 text-sm text-slate-600">
+    <h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-500">
+      Elasticity impact
+    </h3>
+    <p class="flex flex-wrap items-center gap-2 text-slate-600">
+      <span>Price adjustment:</span>
+      <span class="font-semibold text-slate-900">
+        {(computed.elasticity.priceAdjustment * 100 - 100).toFixed(1)}%
+      </span>
+      <span class="text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">·</span>
+      <span>Conversion lift:</span>
+      <span class="font-semibold text-slate-900">
+        {(computed.elasticity.conversionMultiplier * 100 - 100).toFixed(1)}%
+      </span>
+    </p>
+    <p class="text-xs text-slate-500">
+      Higher elasticity reduces price but boosts conversion. Positive elasticity indicates you
+      can raise price with limited drop-off.
+    </p>
+  </div>
+
+  <div class="card glass-card animate-rise space-y-7 p-7">
     <header class="flex flex-wrap items-center justify-between gap-3">
       <div>
         <h3 class="text-lg font-semibold text-slate-900">Tier Breakdown</h3>
@@ -129,7 +167,7 @@
       {/if}
     </header>
 
-    <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-inner">
+    <div class="overflow-hidden rounded-2xl border border-slate-200/80 shadow-inner">
       <table class="min-w-full divide-y divide-slate-200">
         <thead
           class="bg-slate-50 text-left text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
@@ -157,53 +195,32 @@
         </tbody>
       </table>
     </div>
+  </div>
 
-    <footer class="grid gap-4 md:grid-cols-2">
-      <div class="rounded-2xl border border-indigo-100 bg-indigo-50/60 p-4 text-sm text-slate-600">
-        <h4 class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-500">
-          Elasticity impact
-        </h4>
-        <p class="mt-3 flex flex-wrap items-center gap-2 text-slate-600">
-          <span>Price adjustment:</span>
-          <span class="font-semibold text-slate-900">
-            {(elasticity.priceAdjustment * 100 - 100).toFixed(1)}%
-          </span>
-          <span class="text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">·</span>
-          <span>Conversion lift:</span>
-          <span class="font-semibold text-slate-900">
-            {(elasticity.conversionMultiplier * 100 - 100).toFixed(1)}%
-          </span>
-        </p>
-        <p class="mt-2 text-xs text-slate-500">
-          Higher elasticity reduces price but boosts conversion. Positive elasticity indicates you
-          can raise price with limited drop-off.
-        </p>
-      </div>
-
-      <div class="rounded-2xl border border-slate-200 p-4 text-sm text-slate-600">
-        <h4 class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
-          Operating notes
-        </h4>
-        <ul class="mt-3 space-y-2">
-          <li>
-            <span class="font-semibold text-slate-900">{formatNumber(state.userCount)}</span>
-            prospects with
-            <span class="font-semibold text-slate-900">
-              {(state.conversionRate * 100).toFixed(1)}%
-            </span>
-            conversion generate
-            <span class="font-semibold text-slate-900">
-              {formatNumber(state.userCount * state.conversionRate)}
-            </span>
-            new customers monthly.
-          </li>
-          <li>
-            CAC of <span class="font-semibold text-slate-900">{formatCurrency(state.cac)}</span>
-            yields an ROI multiple of
-            <span class="font-semibold text-slate-900">{metrics.roiMultiple.toFixed(2)}×</span>.
-          </li>
-        </ul>
-      </div>
-    </footer>
+  <div class="card glass-card animate-rise space-y-3 p-6 text-sm text-slate-600">
+    <h4 class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">Operating notes</h4>
+    <ul class="space-y-2 leading-relaxed">
+      <li>
+        <span class="font-semibold text-slate-900">{formatNumber(state.userCount)}</span>
+        prospects with
+        <span class="font-semibold text-slate-900">{(state.conversionRate * 100).toFixed(1)}%</span>
+        conversion generate
+        <span class="font-semibold text-slate-900"
+          >{formatNumber(state.userCount * state.conversionRate)}</span
+        >
+        new customers monthly.
+      </li>
+      <li>
+        CAC of <span class="font-semibold text-slate-900">{formatCurrency(state.cac)}</span>
+        yields an ROI multiple of
+        <span class="font-semibold text-slate-900">{metrics.roiMultiple.toFixed(2)}×</span>.
+      </li>
+      <li>
+        Average ticket of <span class="font-semibold text-slate-900"
+          >{formatCurrency(averageTicket)}</span
+        >
+        reflects the weighted mix across tiers.
+      </li>
+    </ul>
   </div>
 </section>

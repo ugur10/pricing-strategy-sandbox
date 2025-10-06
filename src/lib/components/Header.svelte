@@ -2,9 +2,9 @@
   const { title, subtitle } = $props<{ title: string; subtitle?: string }>();
 </script>
 
-<header class="animate-fade-in space-y-6">
-  <div class="flex flex-wrap items-center justify-between gap-4">
-    <div class="flex items-center gap-3">
+<header class="animate-fade-in space-y-8">
+  <div class="flex flex-wrap items-center justify-between gap-6">
+    <div class="flex items-center gap-4">
       <div
         class="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-100 text-brand shadow-inner"
       >
@@ -29,8 +29,8 @@
   <div
     class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-brand to-indigo-500 p-[1px]"
   >
-    <div class="rounded-[calc(theme(borderRadius.3xl)-1px)] bg-white/80 p-6 backdrop-blur">
-      <p class="max-w-2xl text-base text-slate-600">
+    <div class="rounded-[calc(theme(borderRadius.3xl)-1px)] bg-white/85 px-8 py-7 backdrop-blur">
+      <p class="max-w-3xl text-base leading-relaxed text-slate-600">
         Model multiple pricing tiers, simulate subscription metrics, and visualize how shifts in
         conversion, churn, and discount sensitivity impact revenue growth over time.
       </p>
