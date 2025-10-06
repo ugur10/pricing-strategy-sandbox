@@ -1,0 +1,7 @@
+[install]
+optional = true
+peer = true
+
+[tasks]
+lint = "bunx eslint ."
+format = "bunx prettier --check ."
