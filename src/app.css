@@ -27,6 +27,14 @@ input[type='range']::-webkit-slider-thumb {
   @apply bg-brand;
 }
 
+input[type='range']::-moz-range-thumb {
+  @apply bg-brand;
+}
+
+input[type='range'] {
+  @apply cursor-pointer accent-brand;
+}
+
 @layer components {
   .card {
     @apply rounded-2xl bg-white shadow-card transition-shadow duration-200 hover:shadow-xl;
@@ -34,5 +42,51 @@ input[type='range']::-webkit-slider-thumb {
 
   .btn-primary {
     @apply inline-flex items-center justify-center rounded-full bg-brand px-5 py-2 text-sm font-medium text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand;
+  }
+
+  .glass-card {
+    @apply rounded-2xl bg-white/80 shadow-card backdrop-blur transition-all duration-200 hover:shadow-2xl;
+  }
+
+  .pill-muted {
+    @apply inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-500;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fade-in 0.36s ease-out both;
+  }
+
+  .animate-rise {
+    animation: rise-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .grid-auto-fit {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }

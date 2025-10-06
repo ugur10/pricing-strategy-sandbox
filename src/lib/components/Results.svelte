@@ -1,5 +1,6 @@
 <script lang="ts">
   import Charts from '$lib/components/Charts.svelte';
+  import { fade } from 'svelte/transition';
   import MetricsCard from '$lib/components/MetricsCard.svelte';
   import { pricingComputed, pricingStore } from '$lib/stores/pricingStore';
   import type { TierRevenueDatum } from '$lib/utils/formulas';
@@ -42,7 +43,7 @@
 </script>
 
 <section class="flex flex-col gap-6">
-  <div class="card space-y-6 p-6">
+  <div class="card glass-card animate-rise space-y-6 p-6">
     <header class="flex flex-wrap items-center justify-between gap-3">
       <div>
         <h2 class="text-xl font-semibold text-slate-900">Live Insights</h2>
@@ -57,49 +58,61 @@
       </div>
     </header>
 
-    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-      <MetricsCard
-        label="ARPU"
-        value={metrics.arpu}
-        variant="currency"
-        hint="Weighted average monthly revenue per converted user."
-      />
-      <MetricsCard
-        label="Lifetime Value"
-        value={metrics.ltv}
-        variant="currency"
-        hint={`Gross margin adjusted retention value at ${(state.churnRate * 100).toFixed(1)}% churn.`}
-      />
-      <MetricsCard
-        label="Gross Margin"
-        value={metrics.grossMargin}
-        variant="percentage"
-        hint="Contribution margin after CAC amortization."
-      />
-      <MetricsCard
-        label="CAC Payback"
-        value={metrics.cacPayback}
-        variant="months"
-        hint="Months to recover customer acquisition cost."
-      />
-      <MetricsCard
-        label="ROI Multiple"
-        value={metrics.roiMultiple}
-        variant="multiple"
-        hint="Lifetime value divided by CAC."
-      />
-      <MetricsCard
-        label="Average Ticket"
-        value={averageTicket}
-        variant="currency"
-        hint="Blended revenue per customer across your mix."
-      />
+    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-live="polite">
+      <div class="animate-fade-in" in:fade={{ duration: 180, delay: 40 }}>
+        <MetricsCard
+          label="ARPU"
+          value={metrics.arpu}
+          variant="currency"
+          hint="Weighted average monthly revenue per converted user."
+        />
+      </div>
+      <div class="animate-fade-in" in:fade={{ duration: 180, delay: 80 }}>
+        <MetricsCard
+          label="Lifetime Value"
+          value={metrics.ltv}
+          variant="currency"
+          hint={`Gross margin adjusted retention value at ${(state.churnRate * 100).toFixed(1)}% churn.`}
+        />
+      </div>
+      <div class="animate-fade-in" in:fade={{ duration: 180, delay: 120 }}>
+        <MetricsCard
+          label="Gross Margin"
+          value={metrics.grossMargin}
+          variant="percentage"
+          hint="Contribution margin after CAC amortization."
+        />
+      </div>
+      <div class="animate-fade-in" in:fade={{ duration: 180, delay: 160 }}>
+        <MetricsCard
+          label="CAC Payback"
+          value={metrics.cacPayback}
+          variant="months"
+          hint="Months to recover customer acquisition cost."
+        />
+      </div>
+      <div class="animate-fade-in" in:fade={{ duration: 180, delay: 200 }}>
+        <MetricsCard
+          label="ROI Multiple"
+          value={metrics.roiMultiple}
+          variant="multiple"
+          hint="Lifetime value divided by CAC."
+        />
+      </div>
+      <div class="animate-fade-in" in:fade={{ duration: 180, delay: 240 }}>
+        <MetricsCard
+          label="Average Ticket"
+          value={averageTicket}
+          variant="currency"
+          hint="Blended revenue per customer across your mix."
+        />
+      </div>
     </div>
   </div>
 
   <Charts {revenueProjection} {tierRevenue} />
 
-  <div class="card space-y-6 p-6">
+  <div class="card glass-card animate-rise space-y-6 p-6">
     <header class="flex flex-wrap items-center justify-between gap-3">
       <div>
         <h3 class="text-lg font-semibold text-slate-900">Tier Breakdown</h3>

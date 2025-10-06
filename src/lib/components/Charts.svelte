@@ -207,7 +207,7 @@
 </script>
 
 <div class="grid gap-6 lg:grid-cols-2">
-  <div class="card h-80 p-6">
+  <div class="card glass-card animate-rise h-80 p-6">
     <div class="flex items-center justify-between">
       <h3 class="text-lg font-semibold text-slate-900">Revenue Over Time</h3>
       <span class="text-xs font-medium uppercase tracking-[0.2em] text-slate-400">12 months</span>
@@ -216,7 +216,7 @@
       <canvas bind:this={lineCanvas}></canvas>
     </div>
   </div>
-  <div class="card h-80 p-6">
+  <div class="card glass-card animate-rise h-80 p-6">
     <div class="flex items-center justify-between">
       <h3 class="text-lg font-semibold text-slate-900">Tier Contribution</h3>
       <span class="text-xs font-medium uppercase tracking-[0.2em] text-slate-400">MRR</span>

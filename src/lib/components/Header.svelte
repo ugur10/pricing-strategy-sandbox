@@ -2,7 +2,7 @@
   const { title, subtitle } = $props<{ title: string; subtitle?: string }>();
 </script>
 
-<header class="space-y-6">
+<header class="animate-fade-in space-y-6">
   <div class="flex flex-wrap items-center justify-between gap-4">
     <div class="flex items-center gap-3">
       <div

@@ -7,6 +7,7 @@
   const conversionPercent = $derived((state.conversionRate ?? 0) * 100);
   const churnPercent = $derived((state.churnRate ?? 0) * 100);
   const elasticity = $derived(state.elasticity ?? 0);
+  const shareTotal = $derived(tiers.reduce((total, tier) => total + tier.share, 0));
 
   const handleTierChange = (tier: PricingTier, field: keyof PricingTier, value: string) => {
     if (field === 'price' || field === 'share') {
@@ -50,7 +51,10 @@
   };
 </script>
 
-<form class="card flex flex-col gap-8 p-6" aria-labelledby="pricing-inputs-heading">
+<form
+  class="card glass-card animate-rise flex flex-col gap-8 p-6"
+  aria-labelledby="pricing-inputs-heading"
+>
   <header class="space-y-2">
     <h2 id="pricing-inputs-heading" class="text-xl font-semibold text-slate-900">Pricing Inputs</h2>
     <p class="text-sm text-slate-500">
@@ -74,7 +78,7 @@
     <div class="space-y-4">
       {#each tiers as tier (tier.id)}
         <div
-          class="rounded-2xl border border-slate-200/70 bg-white/80 p-4 shadow-sm transition hover:border-indigo-200 hover:shadow-lg"
+          class="animate-fade-in rounded-2xl border border-slate-200/70 bg-white/80 p-4 shadow-sm transition hover:border-indigo-200 hover:shadow-lg"
         >
           <div class="grid gap-4 sm:grid-cols-2">
             <label class="flex flex-col gap-2 text-sm font-medium text-slate-600">
@@ -143,6 +147,21 @@
     <p class="text-xs text-slate-400">
       Tier shares are normalized automatically to always sum to 100%.
     </p>
+
+    <div class="rounded-2xl border border-slate-200/70 bg-slate-50/80 p-4">
+      <div
+        class="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.25em] text-slate-400"
+      >
+        <span>Normalized distribution</span>
+        <span class="text-slate-500">{(shareTotal * 100).toFixed(1)}%</span>
+      </div>
+      <div class="mt-3 h-2 w-full overflow-hidden rounded-full bg-slate-200/70">
+        <div
+          class="h-full rounded-full bg-brand transition-[width] duration-500 ease-out"
+          style={`width: ${Math.min(shareTotal * 100, 100)}%`}
+        ></div>
+      </div>
+    </div>
   </section>
 
   <section class="grid gap-6 md:grid-cols-2">
