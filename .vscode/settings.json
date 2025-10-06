@@ -1,7 +1,7 @@
 {
-	"css.lint.unknownAtRules": "ignore",
-	"tailwindCSS.experimental.configFile": "./tailwind.config.cjs",
-	"tailwindCSS.includeLanguages": {
-		"svelte": "html"
-	}
+  "css.lint.unknownAtRules": "ignore",
+  "tailwindCSS.experimental.configFile": "./tailwind.config.cjs",
+  "tailwindCSS.includeLanguages": {
+    "svelte": "html"
+  }
 }

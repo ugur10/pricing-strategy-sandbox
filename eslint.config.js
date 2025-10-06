@@ -4,47 +4,55 @@ import svelte from 'eslint-plugin-svelte';
 import prettier from 'eslint-config-prettier';
 
 const ignores = {
-	ignores: ['.svelte-kit', 'build', 'dist', 'eslint.config.js', 'tailwind.config.cjs', 'postcss.config.cjs', 'bunfig.toml']
+  ignores: [
+    '.svelte-kit',
+    'build',
+    'dist',
+    'eslint.config.js',
+    'tailwind.config.cjs',
+    'postcss.config.cjs',
+    'bunfig.toml',
+  ],
 };
 
 const svelteTypeScript = {
-	files: ['**/*.svelte'],
-	languageOptions: {
-		parserOptions: {
-			parser: {
-				ts: tseslint.parser
-			},
-			projectService: true,
-			tsconfigRootDir: import.meta.dirname,
-			extraFileExtensions: ['.svelte']
-		}
-	}
+  files: ['**/*.svelte'],
+  languageOptions: {
+    parserOptions: {
+      parser: {
+        ts: tseslint.parser,
+      },
+      projectService: true,
+      tsconfigRootDir: import.meta.dirname,
+      extraFileExtensions: ['.svelte'],
+    },
+  },
 };
 
 const typeCheckedTs = tseslint.configs.recommendedTypeChecked.map((config) => ({
-	...config,
-	files: ['**/*.ts'],
-	languageOptions: {
-		...(config.languageOptions ?? {}),
-		parserOptions: {
-			...(config.languageOptions?.parserOptions ?? {}),
-			projectService: true,
-			tsconfigRootDir: import.meta.dirname
-		}
-	}
+  ...config,
+  files: ['**/*.ts'],
+  languageOptions: {
+    ...(config.languageOptions ?? {}),
+    parserOptions: {
+      ...(config.languageOptions?.parserOptions ?? {}),
+      projectService: true,
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
 }));
 
 export default [
-	ignores,
-	...svelte.configs['flat/recommended'],
-	svelteTypeScript,
-	...typeCheckedTs,
-	js.configs.recommended,
-	prettier,
-	{
-		files: ['**/*.{js,ts,svelte}'],
-		rules: {
-			'no-console': ['warn', { allow: ['warn', 'error'] }]
-		}
-	}
+  ignores,
+  ...svelte.configs['flat/recommended'],
+  svelteTypeScript,
+  ...typeCheckedTs,
+  js.configs.recommended,
+  prettier,
+  {
+    files: ['**/*.{js,ts,svelte}'],
+    rules: {
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+    },
+  },
 ];
