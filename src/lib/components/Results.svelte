@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Charts from '$lib/components/Charts.svelte';
   import MetricsCard from '$lib/components/MetricsCard.svelte';
   import { pricingComputed, pricingStore } from '$lib/stores/pricingStore';
   import type { TierRevenueDatum } from '$lib/utils/formulas';
@@ -8,6 +9,7 @@
 
   const metrics = $derived(computed.metrics);
   const tierRevenue = $derived(computed.tierRevenue);
+  const revenueProjection = $derived(computed.revenueProjection);
   const elasticity = $derived(computed.elasticity);
   const adjustedTiers = $derived(computed.adjustedTiers);
 
@@ -94,6 +96,8 @@
       />
     </div>
   </div>
+
+  <Charts {revenueProjection} {tierRevenue} />
 
   <div class="card space-y-6 p-6">
     <header class="flex flex-wrap items-center justify-between gap-3">
